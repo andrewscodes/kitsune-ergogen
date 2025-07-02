@@ -1,0 +1,201 @@
+units:
+  # Proxy Spacing Variables
+  kx: 19
+  ky: 19
+  # Padding Variables
+  px: kx + 2
+  py: ky + 2
+  $default_height: 19
+  $default_width: 19
+points:
+  zones:
+    matrix:
+      columns:
+        one:
+        two:
+        three:
+        four:
+        five:
+        six:
+      rows:
+        four:
+        three:
+        two:
+        one:
+      anchor:
+          shift: [150, -150]
+    thumb:
+      anchor:
+        ref: matrix_three_four
+        shift: [-0.15kx, -1ky]      
+      columns:
+        first:                  
+          key.name: thumb_first      
+        second:             
+          key.name: thumb_second         
+        third:
+          key.name: thumb_third          
+        fourth:
+          key.name: thumb_fourth        
+          key.splay: -12
+          key.origin: [-0.5kx, -0.5ky]
+        fifth:
+          key.name: thumb_fifth
+          key.splay: -8   
+          key.origin: [0.5kx, -0.5ky]
+    encoder:
+      anchor:
+        ref: matrix_six_four
+        shift: [1.1kx, 0ky]
+      columns:
+        first:
+          key.name: encoder 
+outlines:
+  raw:
+    - what: rectangle
+      where: true
+      size: [px, py]
+  keys:
+    - what: rectangle
+      where: true
+      bound: false
+      size: [kx-0.5,ky-0.5]
+  board:
+    - what: polygon
+      operation: stack
+      points:
+        - ref: matrix_one_four
+          shift: [-0.5px,-0.5py]
+        - ref: matrix_one_one
+          shift: [-0.5px,0.5py]
+        - ref: matrix_six_one     
+          shift: [1.55px,0.5py]    
+        - ref: thumb_fifth
+          shift: [0.5px,0.5py]
+        - ref: thumb_fifth
+          shift: [0.5px,-0.5py]
+        - ref: thumb_third
+          shift: [0.5px,-0.55py]
+        - ref: thumb_first
+          shift: [-0.5px,-0.55py]
+      fillet: 2
+  combo:
+    - name: board
+    - operation: subtract
+      name: keys
+pcbs:
+  kitsune:
+    template: kicad8
+    outlines:
+      main:
+        outline: board   
+    footprints:
+      mx_hotswap:
+        what: ceoloide/switch_mx    
+        where: /^(?!.*encoder)(matrix|thumb)/
+        params:                 
+          hotswap: true 
+          reversible: true
+          from: "{{column_net}}"
+          to: "{{colrow}}"      
+        adjust:
+          rotate: 180
+      diode:
+        what: ceoloide/diode_tht_sod123
+        where: /^(?!.*encoder)(matrix|thumb)/
+        params:
+          reversible: true
+          from: "{{colrow}}"
+          to: "{{row_net}}"
+        adjust:
+          shift: [0, -9]
+      nice_nano:
+        what: ceoloide/mcu_nice_nano
+        params:
+          reversible: true
+        where:
+          ref: matrix_six_one
+          shift: [1.1kx,-0.33ky]              
+      nice_view:
+        params:
+          reversible: true
+        what: ceoloide/display_nice_view
+        where:
+          ref: matrix_six_two
+          shift: [21,9]       
+      rotary_encoder:
+        what: ceoloide/rotary_encoder_ec11_ec12
+        where: encoder        
+      per_key_led:        
+        what: ceoloide/led_sk6812mini-e        
+        params: 
+          reversible: true
+          P2: undefined
+          P4: undefined
+        where: /^(?!.*encoder)(matrix|thumb)/
+        adjust:
+          shift: [0, 5]
+      battery_connector:
+        what: ceoloide/battery_connector_jst_ph_2
+        params:
+          reversible: true
+        where:
+          ref: matrix_six_three
+          shift: [1.1kx,0.2ky]     
+      reset_switch:
+        what: ceoloide/reset_switch_smd_side
+        params:
+          reversible: true
+        where:
+          ref: matrix_six_three
+          shift: [1.620kx,0.24ky]    
+        adjust:
+          rotate: -90
+      power_switch:
+        what: ceoloide/power_switch_smd_side
+        params:
+          reversible: true
+        where:
+          ref: matrix_six_three
+          shift: [1.623kx,-0.3ky]    
+        adjust:
+      hole_one_one:
+        what: ceoloide/mounting_hole_npth
+        params: 
+          hole_size: 4.5
+          hole_drill: 4
+        where: 
+          ref: matrix_one_one
+          shift: [0.5kx,-0.6ky]    
+      hole_five_one:
+        what: ceoloide/mounting_hole_npth
+        params: 
+          hole_size: 4.5
+          hole_drill: 4
+        where: 
+          ref: matrix_five_one
+          shift: [0.5kx,-0.6ky]     
+      hole_one_three:
+        what: ceoloide/mounting_hole_npth
+        params: 
+          hole_size: 4.5
+          hole_drill: 4
+        where: 
+          ref: matrix_one_three
+          shift: [0.5kx,-0.6ky]      
+      hole_five_three:
+        what: ceoloide/mounting_hole_npth
+        params: 
+          hole_size: 4.5
+          hole_drill: 4
+        where: 
+          ref: matrix_five_three
+          shift: [0.5kx,-0.6ky]   
+      hole_six_four:
+        what: ceoloide/mounting_hole_npth
+        params: 
+          hole_size: 4.5
+          hole_drill: 4
+        where: 
+          ref: matrix_six_four
+          shift: [0.75kx,-0.65ky]         
