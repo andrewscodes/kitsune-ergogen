@@ -13,22 +13,22 @@ points:
       columns:
         one:
           key:
-            column_net: P9
+            column_net: P4
         two:
           key:
-            column_net: P8
+            column_net: P5
         three:
           key:
-            column_net: P7
+            column_net: P6
         four:
           key:
-            column_net: P6
+            column_net: P7
         five:
           key:
-            column_net: P5
+            column_net: P8
         six:
           key:
-            column_net: P4
+            column_net: P9
       rows:
         four:
           row_net: P16
@@ -47,21 +47,21 @@ points:
       columns:
         first:                  
           key.name: thumb_first  
-          key.column_net: P9 
+          key.column_net: P4
         second:             
           key.name: thumb_second  
-          key.column_net: P8      
+          key.column_net: P5     
         third:
           key.name: thumb_third  
-          key.column_net: P7        
+          key.column_net: P6    
         fourth:
           key.name: thumb_fourth  
-          key.column_net: P6       
+          key.column_net: P7
           key.splay: -12
           key.origin: [-0.5kx, -0.5ky]
         fifth:
           key.name: thumb_fifth
-          key.column_net: P5
+          key.column_net: P8
           key.splay: -8   
           key.origin: [0.5kx, -0.5ky]
       rows:
