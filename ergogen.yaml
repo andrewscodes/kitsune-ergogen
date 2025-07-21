@@ -13,31 +13,31 @@ points:
       columns:
         one:
           key:
-            column_net: P4
+            column_net: C1
         two:
           key:
-            column_net: P5
+            column_net: C2
         three:
           key:
-            column_net: P6
+            column_net: C3
         four:
           key:
-            column_net: P7
+            column_net: C4
         five:
           key:
-            column_net: P8
+            column_net: C5
         six:
           key:
-            column_net: P9
+            column_net: C6
       rows:
         four:
-          row_net: P16
+          row_net: R4
         three:
-          row_net: P14
+          row_net: R3
         two:
-          row_net: P15
+          row_net: R2
         one:
-          row_net: P18
+          row_net: R1
       anchor:
           shift: [150, -150]
     thumb:
@@ -47,26 +47,26 @@ points:
       columns:
         first:                  
           key.name: thumb_first  
-          key.column_net: P4
+          key.column_net: C1
         second:             
           key.name: thumb_second  
-          key.column_net: P5     
+          key.column_net: C2  
         third:
           key.name: thumb_third  
-          key.column_net: P6    
+          key.column_net: C3  
         fourth:
           key.name: thumb_fourth  
-          key.column_net: P7
+          key.column_net: C4
           key.splay: -12
           key.origin: [-0.5kx, -0.5ky]
         fifth:
           key.name: thumb_fifth
-          key.column_net: P8
+          key.column_net: C5
           key.splay: -8   
           key.origin: [0.5kx, -0.5ky]
       rows:
         five:
-          row_net: P10
+          row_net: R5
     encoder:
       anchor:
         ref: matrix_six_four
@@ -136,13 +136,38 @@ pcbs:
       nice_nano:
         what: ceoloide/mcu_nice_nano
         params:
+          P0: DAT
+          P1: LED
+          P21: SDA
+          P20: SCL
+          P19: CS
+          P18: R1
+          P15: R2
+          P14: R3
+          P16: R4
+          P10: R5
+          P4: C1
+          P5: C2
+          P6: C3
+          P7: C4
+          P8: C5
+          P9: C6
           reversible: true
+          include_traces: true
+          show_silk_labels: true
+          show_via_labels: true
+          show_instructions: false
+          use_rectangular_jumpers: true
         where:
           ref: matrix_six_one
           shift: [1.1kx,-0.33ky]              
       nice_view:
         params:
+          MOSI: SDA
+          SCK: SCL
           reversible: true
+          include_labels: false
+          invert_jumpers_position: true
         what: ceoloide/display_nice_view
         where:
           ref: matrix_six_two
@@ -151,7 +176,7 @@ pcbs:
         what: ceoloide/rotary_encoder_ec11_ec12
         where: encoder        
       per_key_led:        
-        what: ceoloide/led_sk6812mini-e        
+        what: ceoloide/led_sk6812mini-e
         params: 
           reversible: true
           P2: undefined
@@ -162,14 +187,20 @@ pcbs:
       battery_connector:
         what: ceoloide/battery_connector_jst_ph_2
         params:
+          BAT_P: BAT_P
+          BAT_N: GND
           reversible: true
+          include_courtyard: false
         where:
           ref: matrix_six_three
           shift: [1.1kx,0.2ky]     
       reset_switch:
         what: ceoloide/reset_switch_smd_side
         params:
+          from: GND
+          to: RST
           reversible: true
+          include_bosses: true
         where:
           ref: matrix_six_three
           shift: [1.620kx,0.24ky]    
@@ -178,6 +209,8 @@ pcbs:
       power_switch:
         what: ceoloide/power_switch_smd_side
         params:
+          from: BAT_P
+          to: RAW
           reversible: true
         where:
           ref: matrix_six_three
