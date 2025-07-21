@@ -7,6 +7,11 @@ units:
   py: ky + 2
   $default_height: 19
   $default_width: 19
+  pwr_trace_width: 0.25
+  gnd_trace_width: 0.25
+  signal_trace_width: 0.15
+  via_size: 0.56 # JLCPCB min 0.56 | KiCad default 0.8
+  via_drill: 0.3 # JLCPCB min 0.3 | KiCad default 0.4
 points:
   zones:
     matrix:
@@ -177,10 +182,21 @@ pcbs:
         where: encoder        
       per_key_led:        
         what: ceoloide/led_sk6812mini-e
-        params: 
-          reversible: true
+        params:  
+          P1: VCC         
           P2: undefined
+          P3: GND
           P4: undefined
+          reversible: true
+          reverse_mount: true
+          include_traces_vias: true
+          via_size: via_size
+          via_drill: via_drill
+          include_keepout: false
+          include_courtyard: false
+          signal_trace_width: signal_trace_width
+          gnd_trace_width: gnd_trace_width
+          vcc_trace_width: pwr_trace_width
         where: /^(?!.*encoder)(matrix|thumb)/
         adjust:
           shift: [0, 5]
@@ -255,4 +271,4 @@ pcbs:
           hole_drill: 4
         where: 
           ref: matrix_six_four
-          shift: [0.75kx,-0.65ky]         
+          shift: [0.75kx,-0.65ky]
