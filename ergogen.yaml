@@ -19,21 +19,99 @@ points:
         one:
           key:
             column_net: C1
+          rows:
+            one.key:
+              led_prev: LED
+              led_next: LED1
+            two.key:
+              led_prev: LED11
+              led_next: LED12
+            three.key:
+              led_prev: LED12
+              led_next: LED13
+            four.key:
+              led_prev: LED23
+              led_next: LED24
         two:
           key:
             column_net: C2
+          rows:
+            one.key:
+              led_prev: LED1
+              led_next: LED2
+            two.key:
+              led_prev: LED10
+              led_next: LED11
+            three.key:
+              led_prev: LED13
+              led_next: LED14
+            four.key:
+              led_prev: LED22
+              led_next: LED23
         three:
           key:
             column_net: C3
+          rows:
+            one.key:
+              led_prev: LED2
+              led_next: LED3
+            two.key:
+              led_prev: LED9
+              led_next: LED10
+            three.key:
+              led_prev: LED14
+              led_next: LED15
+            four.key:
+              led_prev: LED21
+              led_next: LED22
         four:
           key:
             column_net: C4
+          rows:
+            one.key:
+              led_prev: LED3
+              led_next: LED4
+            two.key:
+              led_prev: LED8
+              led_next: LED9
+            three.key:
+              led_prev: LED15
+              led_next: LED16
+            four.key:
+              led_prev: LED20
+              led_next: LED21
         five:
           key:
             column_net: C5
+          rows:
+            one.key:
+              led_prev: LED4
+              led_next: LED5
+            two.key:
+              led_prev: LED7
+              led_next: LED8
+            three.key:
+              led_prev: LED16
+              led_next: LED17
+            four.key:
+              led_prev: LED19
+              led_next: LED20
         six:
           key:
             column_net: C6
+          rows:
+            one.key:
+              led_prev: LED5
+              led_next: LED6
+            two.key:
+              led_prev: LED6
+              led_next: LED7
+            three.key:
+              led_prev: LED17
+              led_next: LED18
+            four.key:
+              led_prev: LED18
+              led_next: LED19
       rows:
         four:
           row_net: R4
@@ -53,22 +131,42 @@ points:
         first:                  
           key.name: thumb_first  
           key.column_net: C1
+          rows:
+            five.key:
+              led_prev: LED24
+              led_next: LED25
         second:             
           key.name: thumb_second  
           key.column_net: C2  
+          rows:
+            five.key:
+              led_prev: LED25
+              led_next: LED26
         third:
           key.name: thumb_third  
           key.column_net: C3  
+          rows:
+            five.key:
+              led_prev: LED26
+              led_next: LED27
         fourth:
           key.name: thumb_fourth  
           key.column_net: C4
           key.splay: -12
           key.origin: [-0.5kx, -0.5ky]
+          rows:
+            five.key:
+              led_prev: LED27
+              led_next: LED28
         fifth:
           key.name: thumb_fifth
           key.column_net: C5
           key.splay: -8   
           key.origin: [0.5kx, -0.5ky]
+          rows:
+            five.key:
+              led_prev: LED28
+              led_next: LEDEND
       rows:
         five:
           row_net: R5
@@ -137,7 +235,9 @@ pcbs:
           from: "{{colrow}}"
           to: "{{row_net}}"
         adjust:
-          shift: [0, -9]
+          shift: [-7.5, 2.5]
+          rotate: -90
+          resist: true
       nice_nano:
         what: ceoloide/mcu_nice_nano
         params:
@@ -184,9 +284,9 @@ pcbs:
         what: ceoloide/led_sk6812mini-e
         params:  
           P1: VCC         
-          P2: undefined
+          P2: "{{key.led_next}}" #DOUT 
           P3: GND
-          P4: undefined
+          P4: "{{key.led_prev}}" #DIN
           reversible: true
           reverse_mount: true
           include_traces_vias: true
