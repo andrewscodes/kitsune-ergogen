@@ -176,7 +176,7 @@ points:
         shift: [1.1kx, 0ky]
       columns:
         first:
-          key.name: encoder 
+          key.name: encoder
 outlines:
   raw:
     - what: rectangle
@@ -217,6 +217,47 @@ pcbs:
       main:
         outline: board   
     footprints:
+      nice_nano:
+        what: ceoloide/mcu_nice_nano
+        params:
+          P0: DAT
+          P1: LED
+          P21: SDA
+          P20: SCL
+          P19: CS
+          P18: R1
+          P15: R2
+          P14: R3
+          P16: R4
+          P10: R5
+          P2: EA
+          P3: EB
+          P4: C1
+          P5: C2
+          P6: C3
+          P7: C4
+          P8: C5
+          P9: C6
+          reversible: true
+          include_traces: true
+          show_silk_labels: true
+          show_via_labels: true
+          show_instructions: false
+          use_rectangular_jumpers: true
+        where:
+          ref: matrix_six_one
+          shift: [1.1kx,-0.33ky]
+      nice_view:
+        params:
+          MOSI: SDA
+          SCK: SCL
+          reversible: true
+          include_labels: false
+          invert_jumpers_position: true
+        what: ceoloide/display_nice_view
+        where:
+          ref: matrix_six_two
+          shift: [21,9]   
       mx_hotswap:
         what: ceoloide/switch_mx    
         where: /^(?!.*encoder)(matrix|thumb)/
@@ -235,51 +276,29 @@ pcbs:
           from: "{{colrow}}"
           to: "{{row_net}}"
         adjust:
-          shift: [-7.5, 2.5]
+          shift: [-7.77, 2.5]
           rotate: -90
           resist: true
-      nice_nano:
-        what: ceoloide/mcu_nice_nano
+      encoder_diode:
+        what: ceoloide/diode_tht_sod123
+        where: encoder
         params:
-          P0: DAT
-          P1: LED
-          P21: SDA
-          P20: SCL
-          P19: CS
-          P18: R1
-          P15: R2
-          P14: R3
-          P16: R4
-          P10: R5
-          P4: C1
-          P5: C2
-          P6: C3
-          P7: C4
-          P8: C5
-          P9: C6
           reversible: true
-          include_traces: true
-          show_silk_labels: true
-          show_via_labels: true
-          show_instructions: false
-          use_rectangular_jumpers: true
-        where:
-          ref: matrix_six_one
-          shift: [1.1kx,-0.33ky]              
-      nice_view:
-        params:
-          MOSI: SDA
-          SCK: SCL
-          reversible: true
-          include_labels: false
-          invert_jumpers_position: true
-        what: ceoloide/display_nice_view
-        where:
-          ref: matrix_six_two
-          shift: [21,9]       
+          from: endiode
+          to: R5
+        adjust:
+          shift: [-7.5, 5]
+          rotate: -90
+          resist: true
       rotary_encoder:
         what: ceoloide/rotary_encoder_ec11_ec12
-        where: encoder        
+        where: encoder   
+        params:
+          S1: C6
+          S2: endiode
+          A: EA
+          B: GND
+          C: EB
       per_key_led:        
         what: ceoloide/led_sk6812mini-e
         params:  
