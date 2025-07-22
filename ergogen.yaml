@@ -248,13 +248,13 @@ pcbs:
           ref: matrix_six_one
           shift: [1.1kx,-0.33ky]
       nice_view:
+        what: ceoloide/display_nice_view
         params:
           MOSI: SDA
           SCK: SCL
           reversible: true
           include_labels: false
-          invert_jumpers_position: true
-        what: ceoloide/display_nice_view
+          invert_jumpers_position: true        
         where:
           ref: matrix_six_two
           shift: [21,9]   
